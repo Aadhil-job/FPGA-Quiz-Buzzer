@@ -7,7 +7,7 @@ https://github.com/user-attachments/assets/1520d2c1-1e65-4e4d-902c-46d1a927ff90
 
 
 
-![Demo photo](doccs/image1.jpg)
+![Demo photo](doccs/image1.jpeg)
 
 
 
@@ -55,7 +55,7 @@ We started with discrete ICs. It took **three trips to the electronics shop**, 2
 
 ## How it works
 
-![Block diagram](doccs/vi.jpg)
+![Block diagram](doccs/vi.jpeg)
 
 1. **Synchronizer.** Each button passes through two flip-flops to avoid metastability.
 2. **Edge detector.** A one-cycle pulse is created on the rising edge, so a held button counts as one press.
@@ -84,7 +84,7 @@ Player buttons are **not** debounced on purpose: a delay could differ between bu
 
 ## Wiring
 
-![Wiring photo](doccs/image.jpg)
+![Wiring photo](doccs/image.jpeg)
 
 - **Buttons:** all four share one 3V3 connection from a Pmod pin. Each button goes between 3V3 and its JB pin, using diagonally opposite legs of the 4-leg button. The FPGA's internal pull-down holds the pin low when the button is released.
 - **LEDs:** each JC pin goes through a 330 ohm resistor to the LED's long leg, and the short leg goes to a Pmod GND pin.
