@@ -2,34 +2,18 @@
 
 A four-player quiz buzzer built in **Verilog** on the **Digilent Nexys 4 DDR (Nexys A7-100T)** using **AMD Vivado**. The first player to press wins: their LED lights, the 7-segment display shows their number, a buzzer sounds for half a second, and every other player is locked out until the reset button is pressed.
 
-> **Demo video:** *(upload your video, see "Adding images and videos" at the bottom)*
->
-> `[PASTE VIDEO LINK OR DRAG THE .mp4 HERE]`
 
-![Demo photo](docs/demo-photo.jpg)
-<!-- Replace with a photo of the board showing the winner LED and the display digit -->
+https://github.com/user-attachments/assets/1520d2c1-1e65-4e4d-902c-46d1a927ff90
 
----
 
-## Team
 
-| Name | Role |
-|---|---|
-| [Name 1] | [e.g. Verilog design] |
-| [Name 2] | [e.g. hardware wiring] |
-| [Name 3] | [e.g. testing and debugging] |
-| [Name 4] | [e.g. documentation] |
+![Demo photo](doccs/image1.jpg)
 
-Guided by **[Guide name]**, [Department], [College name].
 
----
 
 ## The story: why an FPGA
 
 We started with discrete ICs. It took **three trips to the electronics shop**, 20 ICs bought and only 10 used, and over **60 jumper wires** across two breadboards. The wiring became impossible to trace, and the reset button ended up buried under it. After an all-nighter the circuit still didn't work reliably, so we moved the whole design to an FPGA, where the same logic is a few lines of Verilog.
-
-![IC attempt](docs/ic-attempt.jpg)
-<!-- Photo of the breadboard mess. This is the best image in the repository. -->
 
 ---
 
@@ -65,14 +49,13 @@ We started with discrete ICs. It took **three trips to the electronics shop**, 2
 | `src/quiz_top.v` | Top module connecting the buzzer logic and the display |
 | `src/quiz_buzzer.v` | Synchronizers, edge detection, winner latch and lockout, reset debounce, buzzer tone |
 | `src/seg_display.v` | Single-digit 7-segment decoder (common anode, active low) |
-| `constraints/quiz_top.xdc` | Pin mapping, I/O standard, clock constraint, button pull-downs |
+| `cnt/quiz_top.xdc` | Pin mapping, I/O standard, clock constraint, button pull-downs |
 
 ---
 
 ## How it works
 
-![Block diagram](docs/block-diagram.png)
-<!-- Add a simple block diagram: buttons > synchronizer > edge detector > winner latch > LEDs / display / buzzer -->
+![Block diagram](doccs/vi.jpg)
 
 1. **Synchronizer.** Each button passes through two flip-flops to avoid metastability.
 2. **Edge detector.** A one-cycle pulse is created on the rising edge, so a held button counts as one press.
@@ -101,8 +84,7 @@ Player buttons are **not** debounced on purpose: a delay could differ between bu
 
 ## Wiring
 
-![Wiring photo](docs/wiring.jpg)
-<!-- Photo or diagram of the buttons, LEDs and buzzer connected to the Pmod headers -->
+![Wiring photo](doccs/image.jpg)
 
 - **Buttons:** all four share one 3V3 connection from a Pmod pin. Each button goes between 3V3 and its JB pin, using diagonally opposite legs of the 4-leg button. The FPGA's internal pull-down holds the pin low when the button is released.
 - **LEDs:** each JC pin goes through a 330 ohm resistor to the LED's long leg, and the short leg goes to a Pmod GND pin.
@@ -127,10 +109,6 @@ If your buzzer module is high-level-trigger instead of low-level-trigger, set `I
 ---
 
 ## Results
-
-![Timing summary](docs/timing-summary.png)
-<!-- Screenshot of the Vivado timing summary -->
-
 | Check | Result |
 |---|---|
 | Worst setup slack | +4.726 ns |
@@ -155,19 +133,8 @@ If your buzzer module is high-level-trigger instead of low-level-trigger, set `I
 - Penalty for pressing too early
 - Multiplexed multi-digit display
 
----
 
-## Adding images and videos
 
-**Images:** create a `docs/` folder in the repository, upload your pictures there, and keep the file names used above (`demo-photo.jpg`, `ic-attempt.jpg`, `block-diagram.png`, `wiring.jpg`, `timing-summary.png`). The README picks them up automatically.
-
-**Video:** the simplest way is to edit this README on github.com and drag your `.mp4` file (under 10 MB, or 100 MB with a paid plan) into the editor. GitHub uploads it and inserts a link that plays inline. For a longer video, upload it to YouTube and link it under the demo photo like this:
-
-```
-[![Watch the demo](docs/demo-photo.jpg)](https://youtu.be/YOUR_VIDEO_ID)
-```
-
-Delete the HTML comments (the lines starting with `<!--`) and the notes above once you've added your files.
 
 ---
 
